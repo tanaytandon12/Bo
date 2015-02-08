@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="paper_img">Paper Image either pdf or doc</string>
+    <string name="si_img">The logo of Software Incubator</string>
+</resources>

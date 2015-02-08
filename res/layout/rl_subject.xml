@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/paper_img"
+        android:layout_width="@dimen/paper_img_width"
+        android:layout_height="@dimen/paper_img_height"
+        android:contentDescription="@string/paper_img"
+        android:padding="@dimen/padding" />
+
+    <TextView
+        android:id="@+id/paper_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/paper_img"
+        android:layout_toRightOf="@id/paper_img"
+        android:gravity="left"
+        android:padding="@dimen/padding"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/paper_title_txt_size" />
+
+    <TextView 
+        android:id="@+id/paper_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paper_title"
+        android:layout_alignLeft="@id/paper_title"
+        android:padding="@dimen/padding"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/paper_size_txt_size"/>
+    
+    <TextView 
+        android:id="@+id/paper_type"
+        android:layout_below="@id/paper_size"
+        android:layout_width="match_parent"
+        android:layout_alignLeft="@id/paper_title"
+        android:padding="@dimen/padding"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/paper_type_txt_size"/>
+</RelativeLayout>
