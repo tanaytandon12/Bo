@@ -20,7 +20,17 @@
     <!-- the dimesions for the paper type -->
     <dimen name="paper_type_txt_size">15sp</dimen>
     
+    <!-- the font size of the search text -->
+    <dimen name="search_txt_size">20sp</dimen>
+    
+    <!-- the corners of the search text background-->
+    <dimen name="bg_search_txt_corners">2dp</dimen>
+
+    <!-- the font size for no internet buttons -->
+    <dimen name="no_internet_txt_size">15sp</dimen>
+    
     <!-- the si image dimension -->
     <dimen name="si_img_width">50dp</dimen>
     <dimen name="si_img_height">50dp</dimen>
+
 </resources>

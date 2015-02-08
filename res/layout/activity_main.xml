@@ -6,11 +6,84 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
-    <ImageView 
+    <LinearLayout
+        android:id="@+id/search_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <AutoCompleteTextView
+            android:id="@+id/search_txt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:background="@drawable/bg_search_box"
+            android:hint="@string/search_hint"
+            android:padding="@dimen/padding"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/search_txt_size" />
+
+        <ImageView
+            android:id="@+id/search_img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:contentDescription="@string/search_img"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_action_search" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/subject_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_container"
+        android:visibility="gone" >
+    </ListView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/no_internet_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/darker_gray"
+        android:padding="@dimen/padding"
+        android:text="@string/no_internet_txt"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/no_internet_txt_size"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/retry_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/no_internet_txt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray"
+        android:padding="@dimen/padding"
+        android:text="@string/try_again_txt"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/no_internet_txt_size"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/si_logo"
+        android:layout_width="@dimen/si_img_width"
+        android:layout_height="@dimen/si_img_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/si"
-        android:padding="5dp"
-        android:contentDescription="@string/si_img"/>
-    
+        android:contentDescription="@string/si_img"
+        android:padding="@dimen/padding"
+        android:src="@drawable/si" />
+
 </RelativeLayout>

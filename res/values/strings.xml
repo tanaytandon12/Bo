@@ -7,4 +7,9 @@
 
     <string name="paper_img">Paper Image either pdf or doc</string>
     <string name="si_img">The logo of Software Incubator</string>
+    <string name="search_img">The search image</string>
+    <string name="search_hint">Enter paper name or code</string>
+    <string name="no_internet_txt">No Internet Connection</string>
+    <string name="try_again_txt">Try Again</string>
+        
 </resources>
