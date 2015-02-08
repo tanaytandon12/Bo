@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/search_img"
             android:padding="@dimen/padding"
-            android:src="@drawable/ic_action_search" />
+            android:src="@drawable/ic_action_search"/>
     </LinearLayout>
 
     <ListView
@@ -48,7 +48,8 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true" 
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/no_internet_txt"
@@ -76,6 +77,19 @@
         android:textSize="@dimen/no_internet_txt_size"
         android:visibility="gone" />
 
+    <TextView 
+        android:id="@+id/no_result_txt"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/padding"
+        android:textSize="@dimen/no_search_result_txt_size"
+        android:textColor="@android:color/black"
+        android:background="@android:color/darker_gray"
+        android:text="@string/no_results_txt"
+        android:visibility="gone"/>
+    
     <ImageView
         android:id="@+id/si_logo"
         android:layout_width="@dimen/si_img_width"
