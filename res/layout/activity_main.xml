@@ -4,7 +4,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#d5d5d5" >
 
     <LinearLayout
         android:id="@+id/search_container"
@@ -32,7 +33,7 @@
             android:layout_weight="1"
             android:contentDescription="@string/search_img"
             android:padding="@dimen/padding"
-            android:src="@drawable/ic_action_search"/>
+            android:src="@drawable/ic_action_search" />
     </LinearLayout>
 
     <ListView
@@ -40,6 +41,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_container"
+        android:layout_marginTop="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:layout_marginBottom="@dimen/si_img_height"
         android:visibility="gone" >
     </ListView>
 
@@ -48,8 +54,8 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" 
-        android:visibility="gone"/>
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/no_internet_txt"
@@ -77,27 +83,27 @@
         android:textSize="@dimen/no_internet_txt_size"
         android:visibility="gone" />
 
-    <TextView 
+    <TextView
         android:id="@+id/no_result_txt"
         android:layout_width="match_parent"
-        android:layout_centerInParent="true"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/darker_gray"
         android:gravity="center"
         android:padding="@dimen/padding"
-        android:textSize="@dimen/no_search_result_txt_size"
-        android:textColor="@android:color/black"
-        android:background="@android:color/darker_gray"
         android:text="@string/no_results_txt"
-        android:visibility="gone"/>
-    
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/no_search_result_txt_size"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/si_logo"
         android:layout_width="@dimen/si_img_width"
         android:layout_height="@dimen/si_img_height"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-8dp"
         android:contentDescription="@string/si_img"
-        android:padding="@dimen/padding"
         android:src="@drawable/si" />
 
 </RelativeLayout>

@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements RequestListener,
 	private View searchView;
 	private SubjectListAdapter subListAdapter;
 	private ArrayList<Paper> papers = new ArrayList<>();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,9 +59,9 @@ public class MainActivity extends Activity implements RequestListener,
 		searchImgView.setOnClickListener(this);
 		siImgView.setOnClickListener(this);
 		retryBtn.setOnClickListener(this);
-		
+
 		doInternetConnBasedAction();
-		
+
 		subListAdapter = new SubjectListAdapter(this, papers);
 		subjectListView.setAdapter(subListAdapter);
 		Controller.setRequestListener(this);
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements RequestListener,
 		hideProgressBar();
 		showListView();
 		papers.clear();
-			try {
+		try {
 			JSONArray jsonArr = new JSONArray(result);
 			if (jsonArr.length() == 0) {
 				showNoResultView();
@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements RequestListener,
 				papers.add(new Paper(jsonArr.getJSONObject(i)));
 			}
 			subListAdapter.notifyDataSetChanged();
-		}catch(JSONException ex) {
+		} catch (JSONException ex) {
 			ex.printStackTrace();
 		}
 	}
@@ -99,23 +99,25 @@ public class MainActivity extends Activity implements RequestListener,
 		int id = v.getId();
 
 		switch (id) {
-		case R.id.search_img :
+		case R.id.search_img:
 			String queryStr = searchTxtView.getText().toString();
 			if (queryStr.length() == 0) {
-				Toast.makeText(this, "Please enter a valid query", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Please enter a valid query",
+						Toast.LENGTH_SHORT).show();
 			} else {
 				hideNoResultView();
 				showProgressBar();
 				(new Controller()).execute(Config.PAPERS_URL + queryStr);
-		
+
 			}
 			break;
-		case R.id.retry_btn : 
+		case R.id.retry_btn:
 			hideNoInternetView();
 			doInternetConnBasedAction();
 			break;
-		case R.id.si_logo : 
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Config.SI_CONTACT_URL));
+		case R.id.si_logo:
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(Config.SI_CONTACT_URL));
 			startActivity(browserIntent);
 			break;
 		}
@@ -128,7 +130,7 @@ public class MainActivity extends Activity implements RequestListener,
 			showSearchView();
 		}
 	}
-	
+
 	private void showSearchView() {
 		searchView.setVisibility(View.VISIBLE);
 	}

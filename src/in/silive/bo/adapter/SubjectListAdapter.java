@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,7 @@ public class SubjectListAdapter extends BaseAdapter {
 					: R.drawable.word;
 			pImgView.setImageResource(pDrawable);
 			pTitleTxtView.setText(title);
+			Log.d("SLA", "title " + title);
 			pSizeTxtView.setText(currentPaper.getSize());
 			pTypeTxtView.setText(currentPaper.getType());
 			convertView.setTag(currentPaper.getUrl());
