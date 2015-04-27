@@ -7,9 +7,11 @@
     <!-- the padding value for the views -->
     <dimen name="padding">5dp</dimen>
 
+    <dimen name="padding_searchbox">10dp</dimen>
+    
     <!-- the dimensions for the paper image -->
-    <dimen name="paper_img_width">40dp</dimen>
-    <dimen name="paper_img_height">40dp</dimen>
+    <dimen name="paper_img_width">60dp</dimen>
+    <dimen name="paper_img_height">60dp</dimen>
 
     <!-- the dimension for the paper title -->
     <dimen name="paper_title_txt_size">15sp</dimen>

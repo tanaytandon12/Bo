@@ -13,27 +13,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
+        android:padding="@dimen/padding_searchbox"
+        android:background="@drawable/bg_subject"
         android:visibility="gone" >
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/search_txt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:background="@drawable/bg_search_box"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:hint="@string/search_hint"
-            android:padding="@dimen/padding"
             android:textColor="@android:color/black"
+            android:background="@android:color/white"
             android:textSize="@dimen/search_txt_size" />
 
         <ImageView
-            android:id="@+id/search_img"
+            android:id="@+id/cross_img"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            android:contentDescription="@string/search_img"
-            android:padding="@dimen/padding"
-            android:src="@drawable/ic_action_search" />
+            android:visibility="gone"
+            android:contentDescription="@string/cross_img_desc"
+            android:src="@drawable/cross" />
     </LinearLayout>
 
     <ListView
@@ -45,7 +48,6 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"
         android:scrollbars="none"
-        android:layout_marginBottom="@dimen/si_img_height"
         android:visibility="gone" >
     </ListView>
 
@@ -62,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:padding="@dimen/padding"
         android:text="@string/no_internet_txt"
         android:textColor="@android:color/black"
@@ -76,7 +78,7 @@
         android:layout_below="@id/no_internet_txt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:padding="@dimen/padding"
         android:text="@string/try_again_txt"
         android:textColor="@android:color/black"
@@ -88,22 +90,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/white"
         android:gravity="center"
         android:padding="@dimen/padding"
         android:text="@string/no_results_txt"
         android:textColor="@android:color/black"
         android:textSize="@dimen/no_search_result_txt_size"
         android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/si_logo"
-        android:layout_width="@dimen/si_img_width"
-        android:layout_height="@dimen/si_img_height"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-8dp"
-        android:contentDescription="@string/si_img"
-        android:src="@drawable/si" />
 
 </RelativeLayout>

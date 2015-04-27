@@ -12,26 +12,30 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AutoCompleteTextView;
+import android.view.View.OnKeyListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements RequestListener,
-		OnClickListener {
+public class MainActivity extends FragmentActivity implements RequestListener,
+		OnClickListener, TextWatcher, OnItemClickListener {
 
-	private ImageView searchImgView, siImgView;
-	private AutoCompleteTextView searchTxtView;
+	private ImageView crossImgView;
+	private EditText searchEdtView;
 	private ListView subjectListView;
 	private ProgressBar mProgressBar;
 	private Button retryBtn;
@@ -46,9 +50,8 @@ public class MainActivity extends Activity implements RequestListener,
 		setContentView(R.layout.activity_main);
 
 		// initialize the views
-		searchImgView = (ImageView) findViewById(R.id.search_img);
-		siImgView = (ImageView) findViewById(R.id.si_logo);
-		searchTxtView = (AutoCompleteTextView) findViewById(R.id.search_txt);
+		crossImgView = (ImageView) findViewById(R.id.cross_img);
+		searchEdtView = (EditText) findViewById(R.id.search_txt);
 		subjectListView = (ListView) findViewById(R.id.subject_list);
 		mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 		retryBtn = (Button) findViewById(R.id.retry_btn);
@@ -56,14 +59,33 @@ public class MainActivity extends Activity implements RequestListener,
 		noInternetTxtView = (TextView) findViewById(R.id.no_internet_txt);
 		searchView = findViewById(R.id.search_container);
 
-		searchImgView.setOnClickListener(this);
-		siImgView.setOnClickListener(this);
+		searchEdtView.addTextChangedListener(this);
+
+		crossImgView.setOnClickListener(this);
 		retryBtn.setOnClickListener(this);
+
+		// ENTER on Keyboard means SEARCH
+		searchEdtView.setOnKeyListener(new OnKeyListener() {
+
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				switch (keyCode) {
+				case KeyEvent.KEYCODE_DPAD_CENTER:
+				case KeyEvent.KEYCODE_ENTER:
+					onClick(v);
+					return true;
+				default:
+					break;
+				}
+				return false;
+			}
+		});
 
 		doInternetConnBasedAction();
 
 		subListAdapter = new SubjectListAdapter(this, papers);
 		subjectListView.setAdapter(subListAdapter);
+		subjectListView.setOnItemClickListener(this);
 		Controller.setRequestListener(this);
 	}
 
@@ -90,6 +112,7 @@ public class MainActivity extends Activity implements RequestListener,
 			}
 			subListAdapter.notifyDataSetChanged();
 		} catch (JSONException ex) {
+			showNoInternetView();
 			ex.printStackTrace();
 		}
 	}
@@ -99,8 +122,12 @@ public class MainActivity extends Activity implements RequestListener,
 		int id = v.getId();
 
 		switch (id) {
-		case R.id.search_img:
-			String queryStr = searchTxtView.getText().toString();
+		case R.id.retry_btn:
+			hideNoInternetView();
+			doInternetConnBasedAction();
+		case R.id.search_txt:
+			String queryStr = searchEdtView.getText().toString()
+					.replace(" ", "%20");
 			if (queryStr.length() == 0) {
 				Toast.makeText(this, "Please enter a valid query",
 						Toast.LENGTH_SHORT).show();
@@ -111,14 +138,8 @@ public class MainActivity extends Activity implements RequestListener,
 
 			}
 			break;
-		case R.id.retry_btn:
-			hideNoInternetView();
-			doInternetConnBasedAction();
-			break;
-		case R.id.si_logo:
-			Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-					Uri.parse(Config.SI_CONTACT_URL));
-			startActivity(browserIntent);
+		case R.id.cross_img:
+			searchEdtView.setText("");
 			break;
 		}
 	}
@@ -171,5 +192,33 @@ public class MainActivity extends Activity implements RequestListener,
 	private void hideNoInternetView() {
 		noInternetTxtView.setVisibility(View.GONE);
 		retryBtn.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		if (s.length() > 0)
+			crossImgView.setVisibility(View.VISIBLE);
+		else
+			crossImgView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void afterTextChanged(Editable s) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		(new ConfirmationDialog(view)).show(getSupportFragmentManager(),
+				"Confirmation Dilaog");
 	}
 }

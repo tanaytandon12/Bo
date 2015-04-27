@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
+    android:padding="10dp"
     android:background="@drawable/bg_subject" >
 
     <ImageView
@@ -28,8 +29,8 @@
         android:id="@+id/paper_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/paper_title"
-        android:layout_below="@id/paper_title"
+        android:layout_alignLeft="@id/paper_title"
+        android:layout_below="@+id/paper_type"
         android:padding="@dimen/padding"
         android:textColor="@android:color/black"
         android:textSize="@dimen/paper_size_txt_size" />
@@ -39,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/paper_title"
-        android:layout_alignBaseline="@id/paper_size"
         android:layout_below="@id/paper_title"
         android:padding="@dimen/padding"
         android:textColor="@android:color/black"

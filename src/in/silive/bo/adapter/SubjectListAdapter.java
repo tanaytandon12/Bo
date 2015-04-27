@@ -5,6 +5,8 @@ import in.silive.bo.model.Paper;
 import in.silive.bo.utilities.Config;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 
@@ -21,6 +23,14 @@ public class SubjectListAdapter extends BaseAdapter {
 
 	private Activity mActivity;
 	private ArrayList<Paper> paperList;
+	private static final String TYPE_PUT = "PUT";
+	private static final String TYPE_UT = "UT";
+	private static final String TYPE_ST1 = "ST 1";
+	private static final String TYPE_ST2 = "ST 2";
+	private static final String TYPE_ST = "ST ";
+	private static final String TYPE_SOLUTION = "SOLUTION";
+	private static final String TYPE_PAPER = "QUESTION PAPER";
+	private static final Pattern pattern = Pattern.compile("-?\\d+");
 
 	public SubjectListAdapter(Activity activity, ArrayList<Paper> paperList) {
 		this.mActivity = activity;
@@ -63,13 +73,41 @@ public class SubjectListAdapter extends BaseAdapter {
 			String fullTitle = currentPaper.getTitle();
 			String title = fullTitle.substring(0, fullTitle.length() - 4);
 			String extension = fullTitle.substring(fullTitle.length() - 3);
+			String type = currentPaper.getType().toUpperCase();
 			int pDrawable = (extension.equalsIgnoreCase(Config.PAPER_TYPE_PDF)) ? R.drawable.pdf
 					: R.drawable.word;
+			String refinedType = "";
+
+			if (type.indexOf(TYPE_ST1) != -1) {
+				refinedType += TYPE_ST1;
+			} else if (type.indexOf(TYPE_ST2) != -1) {
+				refinedType += TYPE_ST2;
+			} else if (type.indexOf(TYPE_ST) != -1) {
+				refinedType += TYPE_ST;
+			} else if (type.indexOf(TYPE_PUT) != -1) {
+				refinedType += TYPE_PUT;
+			} else {
+				refinedType += TYPE_UT;
+			}
+
+			refinedType += " ";
+			Matcher years = pattern.matcher(type);
+			while (years.find()) {
+				if (years.group().length() >= 4) {
+					refinedType += years.group() + " ";
+				} 
+			}
+
+			if (type.indexOf(TYPE_SOLUTION) != -1) {
+				refinedType += TYPE_SOLUTION;
+			} else {
+				refinedType += TYPE_PAPER;
+			}
+
 			pImgView.setImageResource(pDrawable);
 			pTitleTxtView.setText(title);
-			Log.d("SLA", "title " + title);
 			pSizeTxtView.setText(currentPaper.getSize());
-			pTypeTxtView.setText(currentPaper.getType());
+			pTypeTxtView.setText(refinedType);
 			convertView.setTag(currentPaper.getUrl());
 		} catch (JSONException ex) {
 			ex.printStackTrace();
