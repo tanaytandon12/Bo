@@ -218,7 +218,8 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		(new ConfirmationDialog(view)).show(getSupportFragmentManager(),
+        
+		(new DownloadFile(view)).show(getSupportFragmentManager(),
 				"Confirmation Dilaog");
 	}
 }
