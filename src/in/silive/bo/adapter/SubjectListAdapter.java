@@ -2,7 +2,8 @@ package in.silive.bo.adapter;
 
 import in.silive.bo.R;
 import in.silive.bo.model.Paper;
-import in.silive.bo.utilities.Config;
+import in.silive.bo.model.ViewHolder;
+import in.silive.bo.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -11,7 +12,6 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,28 +54,34 @@ public class SubjectListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder mViewHolder = null;
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mActivity
 					.getLayoutInflater();
 			convertView = inflater.inflate(R.layout.rl_subject, parent, false);
+			mViewHolder = new ViewHolder();
+			mViewHolder.pImgView = (ImageView) convertView
+					.findViewById(R.id.paper_img);
+			mViewHolder.pTitleTxtView = (TextView) convertView
+					.findViewById(R.id.paper_title);
+			mViewHolder.pSizeTxtView = (TextView) convertView
+					.findViewById(R.id.paper_size);
+			mViewHolder.pTypeTxtView = (TextView) convertView
+					.findViewById(R.id.paper_type);
+			convertView.setTag(mViewHolder);
+		} else {
+			mViewHolder = (ViewHolder) convertView.getTag();
 		}
+
 		Paper currentPaper = (Paper) getItem(position);
 
-		ImageView pImgView = (ImageView) convertView
-				.findViewById(R.id.paper_img);
-		TextView pTitleTxtView = (TextView) convertView
-				.findViewById(R.id.paper_title);
-		TextView pSizeTxtView = (TextView) convertView
-				.findViewById(R.id.paper_size);
-		TextView pTypeTxtView = (TextView) convertView
-				.findViewById(R.id.paper_type);
 		try {
 			String fullTitle = currentPaper.getTitle();
-			String title = fullTitle.substring(0, fullTitle.length() - 4);
-			String extension = fullTitle.substring(fullTitle.length() - 3);
-			String type = currentPaper.getType().toUpperCase();
-			int pDrawable = (extension.equalsIgnoreCase(Config.PAPER_TYPE_PDF)) ? R.drawable.pdf
-					: R.drawable.word;
+			int indexOfLastDot = fullTitle.lastIndexOf(".");
+			String title = fullTitle.substring(0, indexOfLastDot);
+			String extension = fullTitle.substring(indexOfLastDot + 1);
+			String type = currentPaper.getType().toUpperCase(
+					mActivity.getResources().getConfiguration().locale);
 			String refinedType = "";
 
 			if (type.indexOf(TYPE_ST1) != -1) {
@@ -95,7 +101,7 @@ public class SubjectListAdapter extends BaseAdapter {
 			while (years.find()) {
 				if (years.group().length() >= 4) {
 					refinedType += years.group() + " ";
-				} 
+				}
 			}
 
 			if (type.indexOf(TYPE_SOLUTION) != -1) {
@@ -104,15 +110,16 @@ public class SubjectListAdapter extends BaseAdapter {
 				refinedType += TYPE_PAPER;
 			}
 
-			pImgView.setImageResource(pDrawable);
-			pTitleTxtView.setText(title);
-			pSizeTxtView.setText(currentPaper.getSize());
-			pTypeTxtView.setText(refinedType);
-			convertView.setTag(currentPaper.getUrl());
+			mViewHolder.pImgView.setImageDrawable(Utilities.getIconDrawable(
+					extension, mActivity));
+			mViewHolder.pTitleTxtView.setText(title);
+			mViewHolder.pSizeTxtView.setText(currentPaper.getSize());
+			mViewHolder.pTypeTxtView.setText(refinedType);
+			mViewHolder.data = currentPaper.getUrl();
+
 		} catch (JSONException ex) {
 			ex.printStackTrace();
 		}
-
 		return convertView;
 	}
 

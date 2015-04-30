@@ -3,24 +3,34 @@ package in.silive.bo;
 import in.silive.bo.adapter.SubjectListAdapter;
 import in.silive.bo.listener.RequestListener;
 import in.silive.bo.model.Paper;
+import in.silive.bo.model.ViewHolder;
 import in.silive.bo.utilities.Config;
 import in.silive.bo.utilities.Controller;
-import in.silive.bo.utilities.MyUtilities;
+import in.silive.bo.utilities.Utilities;
 
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -41,8 +51,10 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 	private Button retryBtn;
 	private TextView noResultTxtView, noInternetTxtView;
 	private View searchView;
+	private InputMethodManager imm;
 	private SubjectListAdapter subListAdapter;
 	private ArrayList<Paper> papers = new ArrayList<>();
+	private boolean mLoading = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +93,25 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 			}
 		});
 
+		imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+
 		doInternetConnBasedAction();
 
 		subListAdapter = new SubjectListAdapter(this, papers);
 		subjectListView.setAdapter(subListAdapter);
 		subjectListView.setOnItemClickListener(this);
 		Controller.setRequestListener(this);
+
+		IntentFilter openFileIntent = new IntentFilter(
+				DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+		registerReceiver(downloadReceiver, openFileIntent);
+
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(downloadReceiver);
 	}
 
 	@Override
@@ -111,10 +136,14 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 				papers.add(new Paper(jsonArr.getJSONObject(i)));
 			}
 			subListAdapter.notifyDataSetChanged();
-		} catch (JSONException ex) {
+			subjectListView.setSelectionAfterHeaderView();
+			} catch (JSONException ex) {
 			showNoInternetView();
 			ex.printStackTrace();
 		}
+		mLoading = false;
+		findViewById(R.id.search_container).requestFocus();
+		imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 	}
 
 	@Override
@@ -125,6 +154,7 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 		case R.id.retry_btn:
 			hideNoInternetView();
 			doInternetConnBasedAction();
+			break;
 		case R.id.search_txt:
 			String queryStr = searchEdtView.getText().toString()
 					.replace(" ", "%20");
@@ -134,18 +164,22 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 			} else {
 				hideNoResultView();
 				showProgressBar();
-				(new Controller()).execute(Config.PAPERS_URL + queryStr);
-
+				if (!mLoading) {
+					(new Controller()).execute(Config.PAPERS_URL + queryStr);
+					mLoading = true;
+				}
 			}
 			break;
 		case R.id.cross_img:
 			searchEdtView.setText("");
+			searchEdtView.requestFocus();
+		
 			break;
 		}
 	}
 
 	private void doInternetConnBasedAction() {
-		if (!MyUtilities.isInternetConnected(this)) {
+		if (!Utilities.isInternetConnected(this)) {
 			showNoInternetView();
 		} else {
 			showSearchView();
@@ -154,10 +188,6 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 
 	private void showSearchView() {
 		searchView.setVisibility(View.VISIBLE);
-	}
-
-	private void hideSearchView() {
-		searchView.setVisibility(View.GONE);
 	}
 
 	private void showProgressBar() {
@@ -218,8 +248,29 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-        
-		(new DownloadFile(view)).show(getSupportFragmentManager(),
-				"Confirmation Dilaog");
+		String data = ((ViewHolder) view.getTag()).data;
+		String extension = data.substring(data.lastIndexOf(".") + 1);
+		if (Utilities.canOpenFile(extension)) {
+			(new ConfirmationDialog(view)).show(getSupportFragmentManager(),
+					"Confirmation Dilaog");
+		} else {
+			(new AlertDialog.Builder(MainActivity.this)
+			// set the title
+					.setTitle("Warning")
+					.setMessage(Html
+							.fromHtml("The file you are atempting to download is a <b>"
+									+ extension
+									+ "</b> file, and it seems you do not have any application that will be able to open it. We suggest you install an application to open <b>"
+									+ extension + "</b> files."))).show();
+		}
+
 	}
+
+	private BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Log.d("TAG", "Fuck yeah" + intent.getDataString());
+		}
+	};
 }

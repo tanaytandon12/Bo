@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:padding="@dimen/padding_searchbox"
         android:background="@drawable/bg_subject"
         android:visibility="gone" >
