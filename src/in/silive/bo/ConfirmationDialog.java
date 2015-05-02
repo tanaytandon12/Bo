@@ -63,6 +63,7 @@ public class ConfirmationDialog extends DialogFragment {
 								dmRequest.setDestinationInExternalPublicDir(
 										Environment.DIRECTORY_DOWNLOADS,
 										documentName);
+								dmRequest.allowScanningByMediaScanner();
 								dmRequest
 										.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 								

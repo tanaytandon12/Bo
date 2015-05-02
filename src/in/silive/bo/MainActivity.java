@@ -137,7 +137,7 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 			}
 			subListAdapter.notifyDataSetChanged();
 			subjectListView.setSelectionAfterHeaderView();
-			} catch (JSONException ex) {
+		} catch (JSONException ex) {
 			showNoInternetView();
 			ex.printStackTrace();
 		}
@@ -173,7 +173,7 @@ public class MainActivity extends FragmentActivity implements RequestListener,
 		case R.id.cross_img:
 			searchEdtView.setText("");
 			searchEdtView.requestFocus();
-		
+			mLoading = false;
 			break;
 		}
 	}

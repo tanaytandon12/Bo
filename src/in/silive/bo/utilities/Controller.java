@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class Controller extends AsyncTask<String, String, String> {
 

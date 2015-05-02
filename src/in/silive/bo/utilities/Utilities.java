@@ -14,12 +14,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 public class Utilities {
 
 	private static HashMap<String, Drawable> mExt2IconMap = new HashMap<>();
-	
+
 	public static boolean isInternetConnected(Context context) {
 		ConnectivityManager connManager = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -43,6 +44,13 @@ public class Utilities {
 		List<ResolveInfo> launchables = context.getPackageManager()
 				.queryIntentActivities(intent, 0);
 		if (launchables.size() >= 1) {
+			Log.d("TAG", "number of launchables : " + launchables.size());
+			for (int i = 0; i < launchables.size(); i++) {
+				Log.d("TAG",
+						launchables.get(i)
+								.loadLabel(context.getPackageManager())
+								.toString());
+			}
 			mExt2IconMap.put(extension,
 					launchables.get(0).loadIcon(context.getPackageManager()));
 			return mExt2IconMap.get(extension);

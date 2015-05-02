@@ -958,7 +958,7 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f070016;
         /**  the corners of the search text background 
          */
-        public static final int bg_search_txt_corners=0x7f07001e;
+        public static final int bg_search_txt_corners=0x7f07001f;
         /**  The platform's desired fixed height for a dialog along the major axis
          (the screen is in portrait). This may be either a fraction or a dimension.
  The platform's desired fixed height for a dialog along the major axis
@@ -993,33 +993,34 @@ containing a value of this type.
         public static final int dialog_fixed_width_minor=0x7f070012;
         /**  the font size for no internet buttons 
          */
-        public static final int no_internet_txt_size=0x7f07001f;
+        public static final int no_internet_txt_size=0x7f070020;
         /**  the font size for no results message 
          */
-        public static final int no_search_result_txt_size=0x7f070020;
+        public static final int no_search_result_txt_size=0x7f070021;
         /**  the padding value for the views 
          */
         public static final int padding=0x7f070017;
-        public static final int paper_img_height=0x7f070019;
+        public static final int padding_searchbox=0x7f070018;
+        public static final int paper_img_height=0x7f07001a;
         /**  the dimensions for the paper image 
          */
-        public static final int paper_img_width=0x7f070018;
+        public static final int paper_img_width=0x7f070019;
         /**  the dimesion for the paper size 
          */
-        public static final int paper_size_txt_size=0x7f07001b;
+        public static final int paper_size_txt_size=0x7f07001c;
         /**  the dimension for the paper title 
          */
-        public static final int paper_title_txt_size=0x7f07001a;
+        public static final int paper_title_txt_size=0x7f07001b;
         /**  the dimesions for the paper type 
          */
-        public static final int paper_type_txt_size=0x7f07001c;
+        public static final int paper_type_txt_size=0x7f07001d;
         /**  the font size of the search text 
          */
-        public static final int search_txt_size=0x7f07001d;
-        public static final int si_img_height=0x7f070022;
+        public static final int search_txt_size=0x7f07001e;
+        public static final int si_img_height=0x7f070023;
         /**  the si image dimension 
          */
-        public static final int si_img_width=0x7f070021;
+        public static final int si_img_width=0x7f070022;
     }
     public static final class drawable {
         public static final int abc_ab_bottom_solid_dark_holo=0x7f020000;
@@ -1109,13 +1110,10 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int bg_search_box=0x7f020057;
-        public static final int bg_subject=0x7f020058;
-        public static final int ic_action_search=0x7f020059;
-        public static final int ic_launcher=0x7f02005a;
-        public static final int pdf=0x7f02005b;
-        public static final int si=0x7f02005c;
-        public static final int word=0x7f02005d;
+        public static final int bg_subject=0x7f020057;
+        public static final int bytepad=0x7f020058;
+        public static final int cross=0x7f020059;
+        public static final int question_mark=0x7f02005a;
     }
     public static final class id {
         public static final int action_bar=0x7f09001c;
@@ -1129,12 +1127,13 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f090002;
         public static final int action_menu_presenter=0x7f090003;
         public static final int action_mode_close_button=0x7f090024;
-        public static final int action_settings=0x7f090049;
+        public static final int action_settings=0x7f090048;
         public static final int activity_chooser_view_content=0x7f090025;
         public static final int always=0x7f09000f;
         public static final int beginning=0x7f090016;
         public static final int checkbox=0x7f09002d;
         public static final int collapseActionView=0x7f090010;
+        public static final int cross_img=0x7f09003e;
         public static final int default_activity_button=0x7f090028;
         public static final int dialog=0x7f090014;
         public static final int disableHome=0x7f090009;
@@ -1156,10 +1155,10 @@ containing a value of this type.
         public static final int no_result_txt=0x7f090043;
         public static final int none=0x7f090019;
         public static final int normal=0x7f090007;
-        public static final int paper_img=0x7f090045;
-        public static final int paper_size=0x7f090048;
-        public static final int paper_title=0x7f090047;
-        public static final int paper_type=0x7f090046;
+        public static final int paper_img=0x7f090044;
+        public static final int paper_size=0x7f090047;
+        public static final int paper_title=0x7f090046;
+        public static final int paper_type=0x7f090045;
         public static final int progress_bar=0x7f090040;
         public static final int progress_circular=0x7f090004;
         public static final int progress_horizontal=0x7f090005;
@@ -1172,7 +1171,6 @@ containing a value of this type.
         public static final int search_container=0x7f09003c;
         public static final int search_edit_frame=0x7f090034;
         public static final int search_go_btn=0x7f09003a;
-        public static final int search_img=0x7f09003e;
         public static final int search_mag_icon=0x7f090035;
         public static final int search_plate=0x7f090036;
         public static final int search_src_text=0x7f090037;
@@ -1182,7 +1180,6 @@ containing a value of this type.
         public static final int showCustom=0x7f09000b;
         public static final int showHome=0x7f09000c;
         public static final int showTitle=0x7f09000d;
-        public static final int si_logo=0x7f090044;
         public static final int split_action_bar=0x7f09001e;
         public static final int subject_list=0x7f09003f;
         public static final int submit_area=0x7f090039;
@@ -1293,12 +1290,12 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
         public static final int action_settings=0x7f0a000f;
         public static final int app_name=0x7f0a000d;
+        public static final int cross_img_desc=0x7f0a0012;
         public static final int hello_world=0x7f0a000e;
         public static final int no_internet_txt=0x7f0a0014;
         public static final int no_results_txt=0x7f0a0016;
         public static final int paper_img=0x7f0a0010;
         public static final int search_hint=0x7f0a0013;
-        public static final int search_img=0x7f0a0012;
         public static final int si_img=0x7f0a0011;
         public static final int try_again_txt=0x7f0a0015;
     }
